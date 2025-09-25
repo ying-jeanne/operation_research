@@ -1,0 +1,713 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{teal},
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{white},
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  emph={Model,quicksum,GRB,addVars,addConstr,optimize},
+  emphstyle=\color{violet}\bfseries,
+  morekeywords={as,from,import,def,return,if,else,try,except,for,in,range,print},
+}
+
+\geometry{margin=0.9in}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\renewcommand{\footrulewidth}{0.4pt} % adds a line at the top of the footer
+\fancyfoot[R]{\thepage} % right-aligned page number
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+
+% Reduce space before/after itemize/enumerate
+\usepackage{enumitem}
+\setlist{itemsep=0.1em, topsep=0.1em, leftmargin=2em}
+
+\title{DBA5101: Estimation of Demand Function for Train Travel}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\Huge\bfseries DBA5103 Operations Research and Analytics\\[0.5em]}
+    {\Huge Home Work II \par}
+    \vspace{1cm}
+    \includegraphics[width=0.30\textwidth]{nus_logo.png} \\[2em]
+    {\large Ying WANG\par}
+    \vspace{0.5cm}
+    \vspace{1cm}
+    {\large
+    National University of Singapore \\
+    \vspace{0.5cm}
+    Submission Date: \today \\
+    \vspace{0.3cm}
+    \href{https://github.com/ying-jeanne/operation_research/tree/main/II}{Link to code repository}
+    }
+    \vfill
+\end{titlepage}
+\thispagestyle{fancy}
+
+\subsection*{1. Find extreme points}
+We covered the brute force method (Matrix Rank-Based Enumeration) in lecture, and also introduced the concept of Edge Direction Method. While the brute force approach is intuitive, it is computationally expensive in both time and space. The 1st and 3rd problems will be solved using MRBE, while the 2nd problem will use EDM.
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item The answer is:
+\begin{align*}
+(0, 0, 2, 0), (0, 1, 0, 0), (1, 0, 0, 0), (0, 0, 0, 0)
+\end{align*} 
+
+Solution process is as follows:
+
+\textbf{we use Matrix Rank-Based Enumeration for this question} \\
+$P = \{(x_1, x_2, x_3, x_4) \mid x_1 + x_2 + \frac{1}{2}x_3 \leq 1, x_1, x_2, x_3, x_4 \geq 0\}$.
+We first write down the matrix format of the constraints (changes has been made in order to align the signs):
+\begin{align*}
+\begin{bmatrix}
+-1 & -1 & -\frac{1}{2} & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix} \geq 
+\begin{bmatrix}
+-1 \\ 0 \\ 0 \\ 0 \\ 0
+\end{bmatrix}
+\end{align*}
+
+We have 4 variables and 5 constraints, so we need to select 4 binding constraints. This gives us $C_5^4 = 5$ combinations cases to solve. I'll demonstrate the first 2 cases; the others follow similarly.
+
+\textbf{Case 1:} Select constraints line 1, 2, 3, and 4 to be binding. We have:
+\begin{align*}
+&Ax = b \implies 
+\begin{bmatrix}
+-1 & -1 & -\frac{1}{2} & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix} =
+\begin{bmatrix}
+-1 \\ 0 \\ 0 \\ 0
+\end{bmatrix} \\
+&\text{where} \det(A) = 0 \implies \text{Not an extreme point}
+\end{align*}
+
+\textbf{Case 2:} Select constraints line 1, 2, 3, and 5 to be binding. We have:
+\begin{align*}
+&Ax = b \implies 
+\begin{bmatrix}
+-1 & -1 & -\frac{1}{2} & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix} =
+\begin{bmatrix}
+-1 \\ 0 \\ 0 \\ 0
+\end{bmatrix} \\
+&\text{where} \det(A) = -\frac{1}{2} \implies \text{Has an extreme point} \\
+&\text{With Gauss elimination, we find }  [x_1, x_2, x_3, x_4] = [0, 0, 2, 0]
+\end{align*}
+
+With the same method, we find the following extreme points for the other cases.
+
+\item The answer is:
+\begin{align*}
+(0, 0, 0),
+(1, 0, 0),
+(0, 1, 0),
+(0, 0, 1),
+(2, 1, 0),
+(1, 0, 1),
+(0, 2, 1),
+(3, 2, 1),
+\end{align*}
+
+Solution process is as follows: \textbf{we use edge direction method for this question}
+
+The feasible region is given as:
+\begin{align*}
+&x_1 - x_2 \leq 1 \tag{1}\\
+&x_2 - x_3 \leq 1 \tag{2}\\
+&x_3 \leq 1 \tag{3}\\
+&x_1 \geq 0 \tag{4}\\
+&x_2 \geq 0 \tag{5}\\
+&x_3 \geq 0 \tag{6}
+\end{align*}
+
+When constraints \{4, 5, 6\} are binding, we have: one extreme point (0, 0, 0), We do a Breadth First Search (BFS) from this point to find all the neighbour extreme points.
+
+\textbf{Case 1:} Drop constraint 4, we have constraints 5 and 6: $x_2 = 0, x_3 = 0$, and $x_1$ can increase along the direction $d=[1, 0, 0]$ we have point $= [0, 0, 0] + \theta[1, 0, 0]$, until constraint 1 is binding, $\theta = 1$ we have: one extreme point (1, 0, 0)
+
+\textbf{Case 2:} Drop constraint 5, we have constraints 4 and 6: $x_1 = 0, x_3 = 0$, and $x_2$ can increase along the direction $d=[0, 1, 0]$ we have point $=[0, 0, 0] + \theta[0, 1, 0]$, until constraint 2 is binding, $\theta = 1$ we have: one extreme point (0, 1, 0)
+
+\textbf{Case 3:} Drop constraint 6, we have constraints 4 and 5: $x_1 = 0, x_2 = 0$, and $x_3$ can increase along the direction $d=[0, 0, 1]$ we have point $=[0, 0, 0] + \theta[0, 0, 1]$, until constraint 3 is binding, $\theta = 1$ we have: one extreme point (0, 0, 1)
+\begin{align*}
+&\text{visited constraints: }&\{4, 5, 6\}, \{1, 5, 6\}, \{2, 4, 6\}, \{3, 4, 5\} \\
+&\text{extreme points found: }&(0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1)
+\end{align*}
+
+Then repeat process until all points are visited.
+
+\item The answer is: 
+\begin{align*}
+(0, 1, 1, 1), (1, 1, 0, 1)
+\end{align*}
+
+Solution process is as follows: \textbf{we use brute force method for this question since after preprocessing, the number of varaible and constraints are both small}
+
+The equality constraints are:
+\begin{align*}
+\begin{bmatrix}
+1 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 \\ 2 \\ 1
+\end{bmatrix} \implies x_3 = 1 - x_1, 1 \geq x_1 \geq 0, x_2 = 1, x_4 = 1
+\end{align*}
+Then we have only 1 free variable $x_1$, and 2 inequality constraints, the final extreme points are (0, 1, 1, 1) and (1, 1, 0, 1).
+\end{enumerate}
+\subsection*{2. Portfolio Management Problem}
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item The primal problem can be written in matrix form:
+\begin{align*}
+\max \quad &c^T x \\
+\text{s.t. } &Ax \leq b \\
+&x \geq 0 \\
+\text{where } &c = [r_1, r_2, \ldots, r_{100}]^T \\
+&A = [1, 1, \ldots, 1] \\
+&x = [x_1, x_2, \ldots, x_{100}]^T
+\end{align*}
+Write the dual problem by respecting rules, we have:
+\begin{align*}
+\min \quad &b\cdot y \\
+\text{s.t. } &A^T y \geq c \\
+&y \geq 0
+\end{align*}
+
+Write it in a more explicit form:
+\begin{align*}
+\min \quad &b\cdot y \\
+\text{s.t. } &y \geq r_i, \quad i = 1, 2, \ldots, 100 \\
+&y \geq 0
+\end{align*}
+The above constraints basically means y is greater than or equal to all $r_i$ and 0.
+\item \textbf{Optimal solutions for primal problems:}
+
+If we chose the constraints $x_i \geq 0$ to be binding, we have the trivial solution $x_i = 0, \text{where }i = 1, 2, \ldots, 100$. And objective value would be 0.
+
+If we chose 99 constraints from $x_i \geq 0$ and the constraint $\sum_{i=1}^{100} x_i \leq b$ to be binding, we have 100 combinations of solutions. The optimal solution is to invest all the budget in one single stock.
+
+The optimal solution depends on whether there is any stock with positive $r_i$. If all $r_i$ are non-positive, the optimal solution is not investing at all $x_i = 0, \text{where }i = 1, 2, \ldots, 100$. The optimal value is 0.
+\begin{align*}
+    \max \quad c^T x = \quad \max (0, r_1, r_2, \ldots, r_{100}) \cdot b
+\end{align*}
+
+\textbf{Optimal solutions for dual problems:}
+The optimal solution for dual problem is to set $y = \max(0, r_1, r_2, \ldots, r_{100})$. The optimal value is the same as primal problem, which is 
+\begin{align*}
+    \min \quad b\cdot y = \quad \max (0, r_1, r_2, \ldots, r_{100}) \cdot b
+\end{align*}
+
+\item Weak Duality Theorem says: For any feasible solutions, Primal Objective Value $\leq$ Dual Objective Value (for max primal problem). If we find feasible solutions for both primal and dual problems, and their objective values are equal, then these two solutions are optimal solutions.
+
+As shown in (b), we have found the optimal solutions for both primal and dual problems, and their objective values are equal. Therefore, the solutions we found in (b) are indeed optimal solutions.
+\end{enumerate}
+
+\subsection*{3. Optimization Problem} 
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item The primal problem can be written in matrix form:
+\begin{align*}
+\max \quad &c^T x \\
+\text{s.t. } &Ax \leq b \\
+&x \geq 0 \\
+\text{where } &c = [10, 12, 12]^T \\
+&A = \begin{bmatrix}
+1 & 2 & 2 \\
+2 & 1 & 1 \\
+2 & 2 & 1 \\
+\end{bmatrix} \\
+&x = [x_1, x_2, x_3]^T \\
+&b = [20, 20, 20]^T 
+\end{align*}
+
+The dual problem would have 3 constraints and 3 variables, and can be written as:
+\begin{align*}
+\min \quad &b\cdot y \\
+\text{s.t. } &A^T y \geq c \\
+&y \geq 0 \\
+\text{where } &c = [10, 12, 12]^T \\
+&A = \begin{bmatrix}
+1 & 2 & 2 \\
+2 & 1 & 1 \\
+2 & 2 & 1 \\
+\end{bmatrix} \\
+&y = [y_1, y_2, y_3]^T \\
+&b = [20, 20, 20]^T 
+\end{align*}
+
+Write it in a more explicit form:
+\begin{align*}
+\min \quad &20y_1 + 20y_2 + 20y_3 \\
+\text{s.t. } &y_1 + 2y_2 + 2y_3 \geq 10 \\
+&2y_1 + y_2 + 2y_3 \geq 12 \\
+&2y_1 + 2y_2 + y_3 \geq 12 \\
+&y_1, y_2, y_3 \geq 0
+\end{align*}
+
+\item Complementary Slackness states that if primal constraint i has slack, then $y_i^* = 0$. If $x_j^* \geq 0$, then dual constraint j must be binding. Given the optimal solution for primal problem $x^* = (4, 4, 4)$ x are all positive, so all the dual constraints must be all binding. We have:
+\begin{align*}
+y_1 + 2y_2 + 2y_3 &= 10 \\
+2y_1 + y_2 + 2y_3 &= 12 \\
+2y_1 + 2y_2 + y_3 &= 12
+\end{align*}
+Solving the above equation with Gauss elimination, we have:
+\begin{align*}
+y^* = \left(\frac{18}{5}, \frac{8}{5}, \frac{8}{5}\right)
+\end{align*}
+The primal objective value is $10\cdot4 + 12\cdot4 + 12\cdot4 = 136$, and the dual objective value is $20 \cdot \frac{18}{5} + 20 \cdot \frac{8}{5} + 20 \cdot \frac{8}{5} = 136$. Since the primal and dual objective values agree, by the Strong Duality Theorem the dual solution is optimal.
+\end{enumerate}
+
+\subsection*{4. Potter manuafacturer}
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item From Table 2.2 (see column labeled "Optimal Value"), we see optimal values for $E, C, P_1, P_2$ and $B$ are 0, 2, 0, 0 and 5 respectively. So the optimal service sets for JP English, Currier, Primrose method 1, Primrose method 2 and Bluetail are 0, 2, 0, 0 and 5. The optimal value of the objective function is $102\cdot2 + 89\cdot5 = 649$ (computed from Table 2.1's "Profit" row).
+\item The dual variables represent shadow prices: the marginal value of each resource or constraint. 
+\begin{itemize}
+\item Clay ($y_1=1.429$) means each lb of clay increases the profit by 1.429 dollars (within 130 $\pm$ allowed changes).
+\item Enamel ($y_2=0$) has no marginal value, it is currently in surplus.
+\item Dry room ($y_3=0$) has no marginal value, it is currently in surplus and not a bottleneck.
+\item Kiln ($y_4=20.143$) each hour of kiln time increases the profit by 20.143 dollars when within constraints, it is the biggest bottleneck.
+\item Primrose Methods ($y_5=11.429$) indicates the current constraint of $P_1 = P_2$ is binding, lose the constraint to $P_1 \geq P_2 $ by one unit will increase the profit by 11.429 dollars.
+\end{itemize}
+
+Values and allowable ranges used in the sensitivity comments above are taken from Table 2.3 (dual variable and allowable increase/decrease columns).
+
+\item Yes — clay's shadow price is 1.429 (Table 2.3, "Dual Variable") and the allowable increase for clay is 23.33 (Table 2.3, "Allowable Increase"), so buying 20 lb at price S\$1.10 increases profit by $(1.429-1.10)\cdot20 = 6.58$ dollars, provided the purchase stays within the allowable range in Table 2.3.
+
+\item Yes, as explained in (b), Primrose Methods constraint $P_1 = P_2$ is binding, if we relax the constraint to $P_1 \geq P_2$ by one unit, the profit will increase by 11.429 dollars. That being said when remove the equal constraint, optimizer would increase $P_1$ to maximize profit.
+\end{enumerate}
+\subsection*{5. Diet Problem}
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item Use $x_1, x_2, x_3, x_4 and x_5$ to represent the amount of 100g purchased of apple, banana, blueberry, durian and tangerine respectively. The mathematical model would be:
+\begin{align*}
+\min \quad 0.5x_1 + 0.3x_2 + 2.5x_3 + 10x_4 +0.5x_5 \\
+\text{s.t. } 52x_1 + 89x_2 + 57x_3 + 147x_4 + 53x_5 &\geq 500 \\
+52x_1 + 89x_2 + 57x_3 + 147x_4 + 53x_5 &\leq 3000 \\
+14x_1 + 23x_2 + 14x_3 + 27x_4 + 13x_5 &\geq 50 \\
+14x_1 + 23x_2 + 14x_3 + 27x_4 + 13x_5 &\leq 400 \\
+2.4x_1 + 2.6x_2 + 2.4x_3 + 3.8x_4 + 1.8x_5 &\geq 20 \\
+2.4x_1 + 2.6x_2 + 2.4x_3 + 3.8x_4 + 1.8x_5 &\leq 30 \\
+54x_1 + 64x_2 + 54x_3 + 44x_4 + 681x_5 &\geq 2000 \\
+54x_1 + 64x_2 + 54x_3 + 44x_4 + 681x_5 &\leq 3500 \\
+4.6x_1 + 8.7x_2 + 9.7x_3 + 19.7x_4 + 26.7x_5 &\geq 75 \\
+4.6x_1 + 8.7x_2 + 9.7x_3 + 19.7x_4 + 26.7x_5 &\leq 150 \\
+x_1, x_2, x_3, x_4, x_5 &\geq 0
+\end{align*}
+
+\textbf{Reproducibility:} From the repository root/II (macOS terminal) create/activate a venv, install requirements and run the script (assumes Python 3 and Gurobi are installed and licensed):
+\begin{verbatim}
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 diet_problem.py
+\end{verbatim}
+
+\textbf{Gurobi code:}
+\begin{lstlisting}[language=Python, caption={Investment Optimization Python Code}]
+import gurobipy as gp
+from gurobipy import GRB
+import numpy as np
+
+def build_model(fruits, prices, nutrition, requirements):
+    """
+    Build the diet optimization model
+    """
+
+    # Create a new model
+    model = gp.Model("DietProblem")
+    model.setParam('LogToConsole', 0)
+    x = model.addVars(5, name=fruits, lb=0)
+# Objective function: minimize cost
+    model.setObjective(sum(prices[i] * x[i] for i in range(5)), GRB.MINIMIZE)
+
+    # Add constraints
+    for nutrient, values in nutrition.items():
+        min_req, max_req = requirements[nutrient]
+        
+        # Minimum requirement
+        model.addConstr(sum(values[i] * x[i] for i in range(5)) >= min_req, 
+                    name=f"min_{nutrient}")
+        
+        # Maximum allowance
+        model.addConstr(sum(values[i] * x[i] for i in range(5)) <= max_req, 
+                    name=f"max_{nutrient}")
+    return model
+
+def main():
+    # Decision variables (amounts in 100g units)
+    fruits = ['Apple', 'Banana', 'Blueberries', 'Durian', 'Tangerine']
+    prices = [0.5, 0.3, 2.5, 10, 0.5]
+        # Nutritional data per 100g
+    nutrition = {
+        'Calories': [52, 89, 57, 147, 53],
+        'Carbohydrate': [14, 23, 14, 27, 13],
+        'Fiber': [2.4, 2.6, 2.4, 3.8, 1.8],
+        'VitaminA': [54, 64, 54, 44, 681],
+        'VitaminC': [4.6, 8.7, 9.7, 19.7, 26.7]
+    }
+
+    # Requirements [min, max]
+    requirements = {
+        'Calories': [500, 3000],
+        'Carbohydrate': [50, 400],
+        'Fiber': [20, 30],
+        'VitaminA': [2000, 3500],
+        'VitaminC': [75, 150]
+    }
+
+    model = build_model(fruits, prices, nutrition, requirements)
+    model.optimize()
+    x = model.getVars()
+
+    print("=== PART (A): ORIGINAL DIET PROBLEM ===")
+    if model.status == GRB.OPTIMAL:
+        print(f"\nOptimal Cost: S${model.objVal}")
+        print("\nOptimal Solution (100g units):")
+        for i in range(5):
+            print(f"  {fruits[i]}: {x[i].x:.3f} units ({x[i].x*100:.1f}g)")
+        
+        print("\nNutritional Content:")
+        for nutrient, values in nutrition.items():
+            total = sum(values[i] * x[i].x for i in range(5))
+            print(f"  {nutrient}: {total:.2f} (Requirement: {requirements[nutrient][0]} - {requirements[nutrient][1]})")
+        print("\nDual Variables (Shadow Prices):")
+        
+        #  Print optimal dual solutions with sensitivity ranges
+        print("\n Dual solutions (Constraint | Shadow Price | Max Decrease | Max Increase):")
+        for d in model.getConstrs():
+            print('%s %g %g %g' % (d.ConstrName, d.Pi, d.SARHSLow, d.SARHSUp))
+    else:
+        print("No optimal solution found!")
+
+if __name__ == "__main__":
+    main()
+
+\end{lstlisting}
+
+\textbf{Output:}
+\begin{tcolorbox}[colback=white, colframe=gray, title=Optimization Results]
+\textbf{Optimal Cost:} S\$3.00
+
+\textbf{Optimal Solution (100g units):}
+\begin{itemize}[nosep]
+    \item Banana: 6.053 units (605.3g)
+    \item Tangerine: 2.368 units (236.8g)
+    \item All other fruits: 0.000 units
+\end{itemize}
+
+\textbf{Nutritional Content:}
+\begin{itemize}[nosep]
+    \item Calories: 664.21 \textit{(Range: 500--3000)}
+    \item Carbohydrate: 170.00 \textit{(Range: 50--400)}
+    \item Fiber: 20.00 \textit{(Range: 20--30)} $\leftarrow$ \textcolor{red}{Binding}
+    \item Vitamin A: 2000.00 \textit{(Range: 2000--3500)} $\leftarrow$ \textcolor{red}{Binding}
+    \item Vitamin C: 115.89 \textit{(Range: 75--150)}
+\end{itemize}
+\textbf{Dual solutions (Shadow Prices \& Sensitivity Analysis):}
+\begin{itemize}[nosep]
+    \item min\_Calories: 0 (Range: $-\infty$ to +664.214)
+    \item max\_Calories: 0 (Range: -664.214 to $+\infty$)
+    \item min\_Carbohydrate: 0 (Range: $-\infty$ to +170.001)
+    \item max\_Carbohydrate: 0 (Range: -170.001 to $+\infty$)
+    \item min\_Fiber: \textcolor{red}{0.104084} (Range: -15.249 to +30)
+    \item max\_Fiber: 0 (Range: -20 to $+\infty$)
+    \item min\_VitaminA: \textcolor{red}{0.000459} (Range: -741.016 to +3050.45)
+    \item max\_VitaminA: 0 (Range: -2000 to $+\infty$)
+    \item min\_VitaminC: 0 (Range: $-\infty$ to +115.886)
+    \item max\_VitaminC: 0 (Range: -115.886 to $+\infty$)
+\end{itemize}
+\end{tcolorbox}
+\textbf{Result Analytics:} The optimal solution selects only two fruits: banana (6.053 units) and tangerine (2.368 units). Two nutritional constraints are binding: minimum fiber (20.00) and minimum Vitamin A (2000.00), making them the bottlenecks that drive the solution. 
+
+Banana provides cost-effective fiber (2.6g per 100g at S\$0.30), while tangerine offers exceptional Vitamin A content (681 units per 100g at S\$0.50). The shadow price analysis shows that relaxing the fiber constraint would save S\$0.104 per unit, while Vitamin A has minimal economic impact (shadow price $\approx$ 0). Other fruits were eliminated due to not binding constraints.
+
+\item The solution won't change, since with the current optimal solution, total $fat = 0.3\cdot6.053 + 0.3\cdot2.368 = 2.5263$, which is within the constraint 0-10g, so the new fat constraint is non-binding. The optimal solution and objective value remain the same.
+\end{enumerate}
+
+\subsection*{6. Markdown Management}
+The code for this question is shown below, I have twisted the example code for a modular structure, so that we can easily create a new model or update an existing model based on what changed. Call create\_or\_update\_model with existing model and new configuration, it will return a new or updated model.
+
+\textbf{Reproducibility:} To reproduce run below commands in root/II (assumes Python 3 and Gurobi installed/licensed):
+\begin{verbatim}
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 markdown.py
+\end{verbatim}
+
+\begin{lstlisting}[language=Python, caption={Markdown Management Python Code}]
+from gurobipy import *
+import numpy as np
+import copy
+
+class MarkdownConfig:
+    def __init__(self, price=None, demand=None, salvage_value=25, 
+                 inventory=2000, time_horizon=15, full_price_week=1):
+        # The vector of prices
+        self.price = np.array(price)
+        # The vector of demands
+        self.demand = np.array(demand)
+        # Salvage value
+        self.s = salvage_value
+        # Total number of inventory
+        self.I = inventory
+        # Time horizon
+        self.T = time_horizon
+        # Full price week
+        self.full_price_week = full_price_week
+        # Number of price levels
+        self.N = len(self.price)
+        
+        # Validation
+        if len(self.price) != len(self.demand):
+            raise ValueError("Price and demand arrays must have the same length")
+    
+#########Model Set-up Using Function###############
+def create_or_update_model(existing_model, config, force_rebuild=False):
+    """
+    Create new model or update existing one based on what changed
+    """
+    if existing_model is None or force_rebuild:
+        # Create new model
+        return _create_fresh_model(config)
+    else:
+        # Try to update existing model
+        try:
+            return _update_existing_model(existing_model, config)
+        except:
+            # Fall back to creating new model if update fails
+            print("Update failed, creating new model...")
+            return _create_fresh_model(config)
+
+def _create_fresh_model(config):
+    """Create a completely new optimization model"""
+    print("Creating fresh model...")
+    m = Model("Retail")
+    m.setParam('LogToConsole', 0)
+    x = m.addVars(config.N, name="x")
+    
+    # Store config reference and variables for later comparison/updates
+    m._config = config
+    m._variables = x
+    
+    # Set objective
+    m.setObjective(quicksum(config.price[i]*config.demand[i]*x[i] for i in range(config.N)) + 
+                  config.s*(config.I - quicksum(config.demand[i]*x[i] for i in range(config.N))), 
+                  GRB.MAXIMIZE)
+    
+    # Add constraints
+    m.addConstr(quicksum(config.demand[i]*x[i] for i in range(config.N)) <= config.I, "inventory")
+    m.addConstr(quicksum(x[i] for i in range(config.N)) <= config.T, "time")
+    m.addConstr(x[0] >= config.full_price_week, "full_price")
+    
+    return m
+
+def _update_existing_model(model, new_config):
+    """Update existing model with new configuration"""
+    print("Updating existing model...")
+    old_config = model._config
+    
+    # If structure changed (number of price levels), rebuild
+    if len(new_config.price) != len(old_config.price):
+        print("Structure changed, rebuilding model...")
+        return _create_fresh_model(new_config)
+    
+    # Update RHS values efficiently
+    model.getConstrByName("inventory").RHS = new_config.I
+    model.getConstrByName("time").RHS = new_config.T
+    model.getConstrByName("full_price").RHS = new_config.full_price_week
+    
+    # If objective coefficients changed, rebuild (Gurobi limitation)
+    if not np.array_equal(new_config.price, old_config.price) or \
+       not np.array_equal(new_config.demand, old_config.demand) or \
+       new_config.s != old_config.s:
+        print("Objective coefficients changed, rebuilding model...")
+        return _create_fresh_model(new_config)
+    
+    # Update stored config and sync model
+    model._config = new_config
+    model.update()
+    print("Model updated successfully!")
+    return model
+
+def solve_and_print(model, config_name=""):
+    """Helper function to solve model and print results"""
+    model.optimize()
+    
+    if model.status == GRB.OPTIMAL:
+        print(f"\n=== {config_name} Results ===")
+        print(f"Optimal objective value: {model.objVal:.2f}")
+        for v in model.getVars():
+            if v.x > 0:  # Only show non-zero variables
+                print(f"  {v.varName}: {v.x:.2f}")
+        # print the dual constraints and shadow prices
+        for c in model.getConstrs():
+            print(f"Constraint: {c.ConstrName}, Shadow Price: {c.Pi}, Range: [{c.SARHSLow}, {c.SARHSUp}]")
+    else:
+        print(f"No optimal solution found for {config_name}")
+
+def main():
+    model = None
+    
+    # Scenario 1: Initial configuration
+    print("=== Scenario 1: Initial Setup ===")
+    config1 = MarkdownConfig(
+        price=[60, 54, 48, 36],
+        demand=[125, 162.5, 217.5, 348.8],
+        salvage_value=25,
+        inventory=2000,
+        time_horizon=15,
+        full_price_week=1
+    )
+    model = create_or_update_model(model, config1)
+    solve_and_print(model, "Initial Setup")
+    
+    # Scenario 2: Change only inventory (efficient update)
+    print("\n=== Scenario 2: Reduced Inventory ===")
+    config2 = copy.deepcopy(config1)
+    config2.I = 2100  # Reduced inventory
+    model = create_or_update_model(model, config2)
+    solve_and_print(model, "Reduced Inventory")
+    
+    # Scenario 3: Change time horizon (efficient update)
+    print("\n=== Scenario 3: Extended Time Horizon ===")
+    config3 = copy.deepcopy(config1)
+    config3.T = 20  # Extended time horizon
+    model = create_or_update_model(model, config3)
+    solve_and_print(model, "Extended Time")
+    
+    # Scenario 4: Change prices (requires rebuild)
+    print("\n=== Scenario 4: Different Prices ===")
+    config4 = copy.deepcopy(config1)
+    config4.price = np.array([60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36]) 
+    config4.demand = np.array([125, 137.5, 150, 162.5, 180.8, 199.1, 217.5, 239.4, 261.3, 283.2, 305.1, 327, 348.8])
+    config4.N = len(config4.price)  # Update N as well
+    model = create_or_update_model(model, config4, True)
+    solve_and_print(model, "Different Prices")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+The Output is shown below:
+\begin{tcolorbox}[colback=white, colframe=gray, title=Markdown Management Results]
+\textbf{Optimal Revenue:} \$116,750.00
+
+\textbf{Optimal Pricing Strategy:}
+\begin{itemize}[nosep]
+    \item Price Level 1 (\$60): 11.67 weeks
+    \item Price Level 2 (\$54): 3.33 weeks  
+    \item Price Level 3 (\$48): 0.00 weeks
+    \item Price Level 4 (\$36): 0.00 weeks
+\end{itemize}
+
+\textbf{Shadow Price Analysis:}
+\begin{itemize}[nosep]
+    \item \textbf{Inventory Constraint:} \$9.00/unit [1,875--2,400] $\leftarrow$ \textcolor{red}{Binding}
+    \item \textbf{Time Constraint:} \$3,250.00/week [12.54--16.00] $\leftarrow$ \textcolor{red}{Binding}  
+    \item \textbf{Full-Price Constraint:} \$0.00/week [-inf, 11.666666666666666]
+\end{itemize}
+\end{tcolorbox}
+\begin{enumerate}[label= (\alph*), leftmargin=2em]
+\item \textbf{The retailer won't need to change the markdown strategy}. From the above shadow price analysis, we have seen that full-price constraint is non-binding, and maximum allowable increase is 11.67 weeks, which means the retailer can even increase the full-price selling period to 11.67 weeks without changing the optimal solution.
+\item \textbf{The retailer won't need to change the markdown strategy}. The current situation (2000 units with only 25 sold in week 1) leaves 1975 units for weeks 2-15. This is mathematically equivalent to having started with 2100 units and selling normally in week 1 (125 units), which would also leave 1975 units from week 2 onwards. Since $2100 \leq 2400$ (within the inventory constraint's valid range), the shadow prices and optimal strategy remain unchanged. (Note the objective maximum value is different between the 2 cases, but it doesn't matter for strategy)
+\item The program is reused for this question see scenario 4 in code, with configuration changes for the new price grid (60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36) and demand as indicated in Table 2.6. 
+
+\textbf{Results Comparison:}
+\begin{tcolorbox}[colback=white, colframe=gray, title=Policy Comparison: Original vs Price Grid Strategy]
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{Original Policy} & \textbf{Price Grid Policy} \\
+\midrule
+\textbf{Revenue} & \$116,750.00 & \$117,250.00 \\
+\textbf{Revenue Gain} & --- & +\$500.00 (+0.43\%) \\
+\midrule
+\textbf{Weeks at \$60} & 11.67 & 5.00 \\
+\textbf{Weeks at \$58} & --- & 10.00 \\
+\textbf{Weeks at \$54} & 3.33 & 0.00 \\
+\midrule
+\textbf{Inventory Shadow Price} & \$9.00/unit & \$13.00/unit \\
+\textbf{Time Shadow Price} & \$3,250.00/week & \$2,750.00/week \\
+\textbf{Sensitivity Range (Inventory)} & [1,875--2,400] & [1,875--2,050] \\
+\textbf{Sensitivity Range (Time)} & [12.54--16.00] & [14.64--16.00] \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+
+\textbf{Strategic Analysis:}
+
+The price grid policy delivers superior financial performance (\$500 additional revenue, 0.43\% improvement) through more balanced demand capture across the selling period. 
+
+\textbf{Key insights:}
+
+\begin{enumerate}[nosep]
+\item \textbf{Demand Curve Optimization:} The \$58 price point captures demand more efficiently than jumping directly to \$54, allowing the retailer to extract more consumer surplus from price-sensitive segments.
+
+\item \textbf{Time Allocation Strategy:} The policy shifts from front-loading high prices (11.67 weeks at \$60) to a more balanced approach (5 weeks at \$60, 10 weeks at \$58), better matching demand elasticity patterns.
+
+\item \textbf{Shadow Price Evolution:} Higher inventory shadow price (\$13.00 vs \$9.00) indicates increased inventory utilization efficiency, while lower time shadow price (\$2,750 vs \$3,250) suggests reduced time pressure under the new strategy.
+
+\item \textbf{Sensitivity Analysis:} Narrower sensitivity ranges indicate the price grid policy operates closer to capacity constraints, requiring more precise demand forecasting. Since inventory is pre-defined and can't be modified during the selling season.
+\end{enumerate}
+
+\textbf{Managerial Implications:}
+
+\begin{itemize}[nosep]
+\item \textbf{Implementation Complexity:} Price grid strategy requires more sophisticated demand forecasting and price change management but offers measurable revenue improvements.
+\item \textbf{Market Positioning:} The \$58 price point provides a psychological bridge between premium (\$60) and discount (\$54) positioning, potentially reducing customer churn.
+\item \textbf{Risk-Return Trade-off:} While revenue increases, the narrower sensitivity ranges suggest higher operational risk if demand patterns deviate from forecasts.
+\end{itemize}
+\end{enumerate}
+\end{document}
