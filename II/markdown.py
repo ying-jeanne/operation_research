@@ -131,7 +131,6 @@ def main():
     print("\n=== Scenario 2: Change Inventory ===")
     config2 = copy.deepcopy(config1)
     config2.I = 2100
-    print("The new config:", config2.__dict__)
     model = create_or_update_model(model, config2)
     solve_and_print(model, "Changed Inventory")
     
