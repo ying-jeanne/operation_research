@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBA5103 Quiz 1 Practice - 100 Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .problem-set {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .options {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .option {
+            margin: 8px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #e8f4f8;
+        }
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #d5f4e6;
+            border-left: 4px solid #27ae60;
+            border-radius: 4px;
+        }
+        .answer.show {
+            display: block;
+        }
+        .show-answer-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .show-answer-btn:hover {
+            background-color: #2980b9;
+        }
+        .math {
+            font-family: 'Courier New', monospace;
+            background-color: #ecf0f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .toggle-all {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .toggle-all:hover {
+            background-color: #229954;
+        }
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        @media print {
+            .show-answer-btn, .toggle-all {
+                display: none;
+            }
+            .answer {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-all" onclick="toggleAllAnswers()">Toggle All Answers</button>
+
+    <h1>DBA5103 Operations Research & Analytics<br>Quiz 1 Practice Questions</h1>
+    <p style="text-align: center; color: #7f8c8d;">100 Questions | 25 Problem Sets | Weeks 1-6 Material</p>
+
+    <!-- Problem Set 1: LP Formulation Basics -->
+    <div class="problem-set">
+        <h2>Problem Set 1: Linear Programming Formulation</h2>
+
+        <div class="question">
+            <p class="question-number">Q1.1 (True/False)</p>
+            <p>A linear programming problem can have a non-linear objective function as long as all constraints are linear.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> A linear programming problem requires BOTH the objective function AND all constraints to be linear. If the objective is non-linear, it's not an LP.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q1.2 (MCQ)</p>
+            <p>Which of the following is NOT a standard form requirement for LP?</p>
+            <div class="options">
+                <div class="option">A) All variables must be non-negative</div>
+                <div class="option">B) All constraints must be equalities</div>
+                <div class="option">C) The objective must be maximization</div>
+                <div class="option">D) Right-hand side must be non-negative</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> Standard form can have either maximization or minimization objectives. We can convert between them using: max f(x) = -min(-f(x)).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q1.3 (Fill in the blank)</p>
+            <p>To convert the constraint <span class="math">3x₁ - 2x₂ ≥ 5</span> to standard form (equality), we add a ________ variable.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: surplus (or slack with negative coefficient)</p>
+                <p><strong>Explanation:</strong> For ≥ constraints, we subtract a surplus variable: 3x₁ - 2x₂ - s = 5, where s ≥ 0.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 2: Polyhedra -->
+    <div class="problem-set">
+        <h2>Problem Set 2: Polyhedra and Feasible Regions</h2>
+
+        <div class="question">
+            <p class="question-number">Q2.1 (MCQ)</p>
+            <p>Which of the following sets is a polyhedron?</p>
+            <div class="options">
+                <div class="option">A) {(x,y) | x² + y² ≤ 1, x,y ≥ 0}</div>
+                <div class="option">B) {(x,y) | xy ≤ 4, x,y ≥ 0}</div>
+                <div class="option">C) {(x,y) | x + 2y ≤ 6, 3x - y ≤ 9, x,y ≥ 0}</div>
+                <div class="option">D) {(x,y) | |x| + |y| ≤ 5}</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> A polyhedron must have all linear constraints. Option C has only linear constraints. Options A and B have non-linear constraints. Option D has absolute values (though it CAN be reformulated as a polyhedron, in its current form it's not explicitly one).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q2.2 (True/False)</p>
+            <p>The constraint <span class="math">x² - 6x + 8 ≤ 0</span> can define a polyhedron.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> x² - 6x + 8 ≤ 0 factors as (x-2)(x-4) ≤ 0, which gives 2 ≤ x ≤ 4. This is equivalent to two linear constraints: x ≥ 2 and x ≤ 4, which define a polyhedron (line segment).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q2.3 (MCQ)</p>
+            <p>A bounded polyhedron in ℝⁿ with non-empty interior must have at least how many extreme points?</p>
+            <div class="options">
+                <div class="option">A) 1</div>
+                <div class="option">B) n</div>
+                <div class="option">C) n+1</div>
+                <div class="option">D) 2ⁿ</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C (n+1)</p>
+                <p><strong>Explanation:</strong> A bounded polyhedron with non-empty interior in ℝⁿ must have at least n+1 extreme points (vertices). For example, a triangle in ℝ² has 3 vertices, a tetrahedron in ℝ³ has 4 vertices.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 3: Matrix Rank -->
+    <div class="problem-set">
+        <h2>Problem Set 3: Matrix Rank and Linear Independence</h2>
+
+        <div class="question">
+            <p class="question-number">Q3.1 (Fill in the blank)</p>
+            <p>If matrix A can be written as A = xy' where x ∈ ℝᵐ and y ∈ ℝⁿ (both non-zero), then rank(A) = ________.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: 1</p>
+                <p><strong>Explanation:</strong> Every row is a scalar multiple of every other row, so the matrix has rank 1.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q3.2 (True/False)</p>
+            <p>If a 5×7 matrix has rank 3, then its columns span ℝ⁵.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> The columns span a 3-dimensional subspace of ℝ⁵, not the entire ℝ⁵. To span ℝ⁵, we would need rank 5.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q3.3 (MCQ)</p>
+            <p>A set of m vectors in ℝⁿ (where m > n) can be linearly independent:</p>
+            <div class="options">
+                <div class="option">A) Always</div>
+                <div class="option">B) Never</div>
+                <div class="option">C) Only if m = n+1</div>
+                <div class="option">D) Only in special cases</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (Never)</p>
+                <p><strong>Explanation:</strong> At most n vectors in ℝⁿ can be linearly independent. If you have more than n vectors, they must be linearly dependent.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 4: Extreme Points Identification -->
+    <div class="problem-set">
+        <h2>Problem Set 4: Extreme Points</h2>
+
+        <div class="question">
+            <p class="question-number">Q4.1 (MCQ)</p>
+            <p>Consider the polyhedron P = {(x₁,x₂) | x₁ + x₂ ≤ 3, x₁,x₂ ≥ 0}. How many extreme points does it have?</p>
+            <div class="options">
+                <div class="option">A) 2</div>
+                <div class="option">B) 3</div>
+                <div class="option">C) 4</div>
+                <div class="option">D) Infinitely many</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (3)</p>
+                <p><strong>Explanation:</strong> The extreme points are: (0,0), (3,0), and (0,3). These are the vertices of a triangle.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q4.2 (True/False)</p>
+            <p>Every point in a polyhedron can be expressed as a convex combination of its extreme points.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> This is only true for BOUNDED polyhedra. For unbounded polyhedra, you need extreme points plus extreme directions (rays).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q4.3 (Fill in the blank)</p>
+            <p>A point x is an extreme point of polyhedron P if and only if there exist ________ linearly independent binding constraints at x.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: n (where n is the dimension/number of variables)</p>
+                <p><strong>Explanation:</strong> An extreme point in ℝⁿ must have n linearly independent binding constraints.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 5: Basic Feasible Solutions -->
+    <div class="problem-set">
+        <h2>Problem Set 5: Basic Feasible Solutions (BFS)</h2>
+
+        <div class="question">
+            <p class="question-number">Q5.1 (MCQ)</p>
+            <p>For a system Ax = b with m equations and n variables (n > m), a BFS has exactly:</p>
+            <div class="options">
+                <div class="option">A) n basic variables</div>
+                <div class="option">B) m basic variables</div>
+                <div class="option">C) n-m basic variables</div>
+                <div class="option">D) It varies</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (m)</p>
+                <p><strong>Explanation:</strong> A BFS has exactly m basic variables (corresponding to m linearly independent columns of A) and n-m non-basic variables (set to 0).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q5.2 (True/False)</p>
+            <p>All basic solutions are feasible.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> A basic solution may have negative components, making it infeasible. Only basic solutions with all components ≥ 0 are called Basic Feasible Solutions (BFS).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q5.3 (MCQ)</p>
+            <p>If we have 3 equations and 7 variables, how many ways can we choose a basis (before checking feasibility)?</p>
+            <div class="options">
+                <div class="option">A) 21</div>
+                <div class="option">B) 35</div>
+                <div class="option">C) 42</div>
+                <div class="option">D) 210</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (35)</p>
+                <p><strong>Explanation:</strong> We need to choose 3 columns from 7, which is C(7,3) = 7!/(3!·4!) = 35.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q5.4 (Fill in the blank)</p>
+            <p>A BFS where one or more basic variables equal zero is called a ________ BFS.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: degenerate</p>
+                <p><strong>Explanation:</strong> Degeneracy occurs when a basic variable is zero, meaning more than n constraints are binding at that point.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 6: Adjacent BFS -->
+    <div class="problem-set">
+        <h2>Problem Set 6: Adjacent Basic Feasible Solutions</h2>
+
+        <div class="question">
+            <p class="question-number">Q6.1 (True/False)</p>
+            <p>Two BFS are adjacent if they share exactly (n-1) binding constraints, where n is the number of variables.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Adjacent BFS differ in exactly one basic variable (one enters, one leaves), so they share n-1 binding constraints.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q6.2 (MCQ)</p>
+            <p>When moving from one BFS to an adjacent BFS, how many variables change their basic/non-basic status?</p>
+            <div class="options">
+                <div class="option">A) Exactly 1</div>
+                <div class="option">B) Exactly 2</div>
+                <div class="option">C) At most 2</div>
+                <div class="option">D) It depends</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (Exactly 2)</p>
+                <p><strong>Explanation:</strong> One variable enters the basis (becomes basic) and one variable leaves the basis (becomes non-basic). Total: 2 variables change status.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q6.3 (Fill in the blank)</p>
+            <p>In the Edge Direction Method, when moving from BFS x to an adjacent BFS, the direction vector d must satisfy ________ = 0.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: Ad (or A·d)</p>
+                <p><strong>Explanation:</strong> To maintain the equality constraints Ax = b while moving along direction d, we need Ad = 0.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 7: Edge Direction Method -->
+    <div class="problem-set">
+        <h2>Problem Set 7: Edge Direction Method</h2>
+
+        <div class="question">
+            <p class="question-number">Q7.1 (MCQ)</p>
+            <p>Starting from BFS (0,0,3,3) with constraints x₁+2x₂+x₃=3, 2x₁+x₂+x₄=3, x≥0. To move toward an adjacent BFS by increasing x₁, the direction vector d₁ has which component for x₁?</p>
+            <div class="options">
+                <div class="option">A) 0</div>
+                <div class="option">B) 1</div>
+                <div class="option">C) -1</div>
+                <div class="option">D) Depends on other variables</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (1)</p>
+                <p><strong>Explanation:</strong> When we choose to increase x₁ (the entering variable), we set d₁ = 1. The other components of d are determined by Ad = 0.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q7.2 (True/False)</p>
+            <p>The maximum step size θ when moving along direction d from point x is determined by θ = min{xᵢ/dᵢ | dᵢ > 0}.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> The correct formula is θ = min{-xᵢ/dᵢ | dᵢ < 0}. We only consider negative components of d because those are the variables that decrease.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q7.3 (Fill in the blank)</p>
+            <p>When using Edge Direction Method, the variable that becomes zero first (determines θ) is called the ________ variable.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: leaving (or departing)</p>
+                <p><strong>Explanation:</strong> The leaving variable exits the basis and becomes non-basic (set to 0).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 8: Duality Formulation -->
+    <div class="problem-set">
+        <h2>Problem Set 8: Duality - Formulation</h2>
+
+        <div class="question">
+            <p class="question-number">Q8.1 (MCQ)</p>
+            <p>For the primal: max c'x s.t. Ax ≤ b, x ≥ 0, the dual is:</p>
+            <div class="options">
+                <div class="option">A) min b'y s.t. A'y ≥ c, y ≥ 0</div>
+                <div class="option">B) max b'y s.t. A'y ≤ c, y ≥ 0</div>
+                <div class="option">C) min b'y s.t. A'y ≤ c, y ≥ 0</div>
+                <div class="option">D) max b'y s.t. A'y ≥ c, y ≥ 0</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A</p>
+                <p><strong>Explanation:</strong> Primal max → Dual min. Primal ≤ constraints with x ≥ 0 → Dual y ≥ 0 with ≥ constraints.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q8.2 (True/False)</p>
+            <p>If the primal has 5 constraints and 8 variables, the dual has 8 constraints and 5 variables.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Primal constraints become dual variables, and primal variables become dual constraints. So roles are swapped.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q8.3 (Fill in the blank)</p>
+            <p>The dual of the dual problem is the ________ problem.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: primal</p>
+                <p><strong>Explanation:</strong> Taking the dual twice returns you to the original problem.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 9: Weak Duality -->
+    <div class="problem-set">
+        <h2>Problem Set 9: Weak Duality Theorem</h2>
+
+        <div class="question">
+            <p class="question-number">Q9.1 (True/False)</p>
+            <p>For a maximization primal, weak duality states that any feasible primal objective ≤ any feasible dual objective.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> This is the fundamental weak duality theorem: c'x ≤ b'y for all feasible x and y.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q9.2 (MCQ)</p>
+            <p>If the primal is unbounded, what can we say about the dual?</p>
+            <div class="options">
+                <div class="option">A) The dual is also unbounded</div>
+                <div class="option">B) The dual is infeasible</div>
+                <div class="option">C) The dual has finite optimal value</div>
+                <div class="option">D) Cannot determine</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> If the primal is unbounded, the dual must be infeasible (by weak duality). If the dual were feasible, it would bound the primal.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q9.3 (MCQ)</p>
+            <p>You have a feasible primal solution with objective value 50 and a feasible dual solution with objective value 45 (for max primal). What can you conclude?</p>
+            <div class="options">
+                <div class="option">A) The primal solution is optimal</div>
+                <div class="option">B) The dual solution is optimal</div>
+                <div class="option">C) There's an error in calculation</div>
+                <div class="option">D) Both could be improved</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> By weak duality, primal objective ≤ dual objective. Having 50 > 45 violates this, so there must be a calculation error.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 10: Strong Duality -->
+    <div class="problem-set">
+        <h2>Problem Set 10: Strong Duality Theorem</h2>
+
+        <div class="question">
+            <p class="question-number">Q10.1 (True/False)</p>
+            <p>Strong duality states that if both primal and dual have feasible solutions, they both have optimal solutions with equal objective values.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> This is the strong duality theorem for linear programming. At optimality, primal objective = dual objective.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q10.2 (MCQ)</p>
+            <p>You find feasible solutions for both primal (max) and dual (min) with objectives 100 and 100 respectively. What can you conclude?</p>
+            <div class="options">
+                <div class="option">A) Neither is optimal</div>
+                <div class="option">B) Both are optimal</div>
+                <div class="option">C) Only primal is optimal</div>
+                <div class="option">D) Cannot determine without more info</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> When feasible solutions have equal objectives, by weak duality both must be optimal (there's no gap to close).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q10.3 (Fill in the blank)</p>
+            <p>The difference between the dual objective and primal objective is called the ________ gap.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: duality</p>
+                <p><strong>Explanation:</strong> The duality gap = dual objective - primal objective. At optimality, this gap is zero (by strong duality).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 11: Complementary Slackness -->
+    <div class="problem-set">
+        <h2>Problem Set 11: Complementary Slackness Conditions</h2>
+
+        <div class="question">
+            <p class="question-number">Q11.1 (MCQ)</p>
+            <p>At optimality, if primal constraint i has slack (not binding), then:</p>
+            <div class="options">
+                <div class="option">A) yᵢ* = 0</div>
+                <div class="option">B) yᵢ* > 0</div>
+                <div class="option">C) All dual variables = 0</div>
+                <div class="option">D) xᵢ* = 0</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A</p>
+                <p><strong>Explanation:</strong> Complementary slackness: If a primal constraint has slack, the corresponding dual variable must be zero.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q11.2 (True/False)</p>
+            <p>If xⱼ* > 0 in the optimal primal solution, then the corresponding dual constraint j must be binding.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> This is the other direction of complementary slackness: positive primal variable → binding dual constraint.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q11.3 (MCQ)</p>
+            <p>Given optimal primal x* = (5, 0, 3) for problem with 3 variables. How many dual constraints must be binding?</p>
+            <div class="options">
+                <div class="option">A) At least 1</div>
+                <div class="option">B) At least 2</div>
+                <div class="option">C) All 3</div>
+                <div class="option">D) Cannot determine</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (At least 2)</p>
+                <p><strong>Explanation:</strong> Since x₁* = 5 > 0 and x₃* = 3 > 0, dual constraints 1 and 3 must be binding. Constraint 2 may or may not be binding (x₂* = 0).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q11.4 (Fill in the blank)</p>
+            <p>The complementary slackness conditions state that at optimality, either a constraint is binding OR its corresponding variable is ________, but not both strictly positive/active.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: zero</p>
+                <p><strong>Explanation:</strong> For each pair (constraint, variable), at least one must be zero/slack at optimality.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 12: Shadow Prices -->
+    <div class="problem-set">
+        <h2>Problem Set 12: Shadow Prices (Dual Variables)</h2>
+
+        <div class="question">
+            <p class="question-number">Q12.1 (MCQ)</p>
+            <p>A shadow price (dual variable) of 8 for a resource constraint means:</p>
+            <div class="options">
+                <div class="option">A) The resource costs $8</div>
+                <div class="option">B) We should buy 8 more units</div>
+                <div class="option">C) Increasing the resource by 1 unit increases profit by $8 (within range)</div>
+                <div class="option">D) The optimal solution uses 8 units</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> Shadow price = marginal value of the resource. It tells you how much the objective improves per unit increase (within the allowable range).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q12.2 (True/False)</p>
+            <p>If a constraint has a shadow price of 0, it means the constraint is not binding.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Shadow price = 0 indicates the constraint has slack (not binding). Adding more of that resource won't help.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q12.3 (MCQ)</p>
+            <p>You can buy additional resource at $5/unit. The shadow price is $12. The allowable increase is 20 units. How much should you buy?</p>
+            <div class="options">
+                <div class="option">A) 0 units</div>
+                <div class="option">B) 20 units</div>
+                <div class="option">C) As much as possible</div>
+                <div class="option">D) Cannot determine without more info</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (20 units)</p>
+                <p><strong>Explanation:</strong> Since shadow price ($12) > cost ($5), buying is profitable. But shadow price is only valid within allowable range (20 units max).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 13: Sensitivity Analysis -->
+    <div class="problem-set">
+        <h2>Problem Set 13: Sensitivity Analysis - Allowable Ranges</h2>
+
+        <div class="question">
+            <p class="question-number">Q13.1 (True/False)</p>
+            <p>The allowable increase/decrease ranges indicate how much a coefficient can change before the optimal SOLUTION changes.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> Allowable ranges indicate when the optimal BASIS changes. The optimal values of variables may change even within the allowable range, but the set of basic variables stays the same.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q13.2 (MCQ)</p>
+            <p>A constraint RHS has allowable increase of 10 and allowable decrease of 5. Current RHS is 50. The shadow price remains valid for RHS in range:</p>
+            <div class="options">
+                <div class="option">A) [40, 55]</div>
+                <div class="option">B) [45, 60]</div>
+                <div class="option">C) [50, 60]</div>
+                <div class="option">D) [40, 50]</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B ([45, 60])</p>
+                <p><strong>Explanation:</strong> Valid range = [current - decrease, current + increase] = [50 - 5, 50 + 10] = [45, 60].</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q13.3 (Fill in the blank)</p>
+            <p>If you change a RHS value beyond its allowable range, the shadow price ________ valid.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: is no longer (or becomes invalid)</p>
+                <p><strong>Explanation:</strong> Beyond the allowable range, the basis changes and you need to re-solve to find new shadow prices.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 14: Reduced Costs -->
+    <div class="problem-set">
+        <h2>Problem Set 14: Reduced Costs</h2>
+
+        <div class="question">
+            <p class="question-number">Q14.1 (MCQ)</p>
+            <p>For a NON-BASIC variable in a maximization problem, if reduced cost = -5, what should we do?</p>
+            <div class="options">
+                <div class="option">A) Current solution is optimal</div>
+                <div class="option">B) Increase that variable to improve objective</div>
+                <div class="option">C) Decrease that variable</div>
+                <div class="option">D) The problem is infeasible</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> For max problem, negative reduced cost means entering that variable improves the objective. c̄ < 0 → good to increase.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q14.2 (True/False)</p>
+            <p>At an optimal solution for a maximization problem, all reduced costs for non-basic variables must be ≤ 0.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> This is the optimality condition for the simplex method in maximization problems. All c̄ⱼ ≤ 0 for non-basic variables.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q14.3 (Fill in the blank)</p>
+            <p>The reduced cost for variable j is computed as c̄ⱼ = cⱼ - ________.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: y'Aⱼ (or yᵀAⱼ)</p>
+                <p><strong>Explanation:</strong> Where y is the vector of dual variables and Aⱼ is the column of constraint coefficients for variable j.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 15: Adding Variables to LP -->
+    <div class="problem-set">
+        <h2>Problem Set 15: Adding Variables to an LP</h2>
+
+        <div class="question">
+            <p class="question-number">Q15.1 (MCQ)</p>
+            <p>You have an optimal solution. You add a new variable to a NON-BINDING constraint. What happens to the optimal objective value?</p>
+            <div class="options">
+                <div class="option">A) Must increase</div>
+                <div class="option">B) Must decrease</div>
+                <div class="option">C) Stays the same</div>
+                <div class="option">D) Cannot determine</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> Adding a variable to a non-binding constraint won't help because that constraint isn't limiting the solution. The new variable will be 0 in the optimal solution.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q15.2 (True/False)</p>
+            <p>Adding a new variable to a maximization LP can never make the optimal objective value worse.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Adding variables expands the feasible region, so optimal value can only improve or stay the same (never gets worse).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q15.3 (MCQ)</p>
+            <p>You add variable x₄ to your LP. The reduced cost c̄₄ = 3 (for max problem). What happens?</p>
+            <div class="options">
+                <div class="option">A) x₄ = 0 in new optimal solution</div>
+                <div class="option">B) x₄ > 0 in new optimal solution</div>
+                <div class="option">C) The problem becomes infeasible</div>
+                <div class="option">D) Cannot determine</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A</p>
+                <p><strong>Explanation:</strong> For max problem, c̄₄ = 3 > 0 means entering x₄ would hurt the objective. So x₄ stays at 0.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 16: Simplex Method Basics -->
+    <div class="problem-set">
+        <h2>Problem Set 16: Simplex Method - Basic Concepts</h2>
+
+        <div class="question">
+            <p class="question-number">Q16.1 (True/False)</p>
+            <p>The Simplex method always finds the global optimum for linear programming problems.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> For LP, any local optimum is also a global optimum (due to convexity). Simplex finds a global optimum if one exists.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q16.2 (MCQ)</p>
+            <p>The Simplex method moves from one BFS to another by:</p>
+            <div class="options">
+                <div class="option">A) Random search</div>
+                <div class="option">B) Moving along edges of the feasible region</div>
+                <div class="option">C) Moving through the interior of feasible region</div>
+                <div class="option">D) Gradient descent</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> Simplex moves along edges (1-dimensional faces) of the polyhedron, visiting vertices (extreme points/BFS).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q16.3 (Fill in the blank)</p>
+            <p>In each iteration of the Simplex method, exactly ________ variable(s) enter the basis and ________ variable(s) leave the basis.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: one (1), one (1)</p>
+                <p><strong>Explanation:</strong> Each iteration involves one variable entering and one leaving to move to an adjacent BFS (except in degenerate cases).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 17: Optimality Conditions -->
+    <div class="problem-set">
+        <h2>Problem Set 17: Optimality Conditions</h2>
+
+        <div class="question">
+            <p class="question-number">Q17.1 (MCQ)</p>
+            <p>For a MINIMIZATION problem, the optimality condition for non-basic variables is:</p>
+            <div class="options">
+                <div class="option">A) All reduced costs ≤ 0</div>
+                <div class="option">B) All reduced costs ≥ 0</div>
+                <div class="option">C) All reduced costs = 0</div>
+                <div class="option">D) At least one reduced cost < 0</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B (All reduced costs ≥ 0)</p>
+                <p><strong>Explanation:</strong> For minimization, c̄ⱼ ≥ 0 for all non-basic variables means we can't improve by entering any variable. (Opposite of maximization!)</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q17.2 (True/False)</p>
+            <p>If all reduced costs are strictly positive (c̄ⱼ > 0) for a minimization problem, the optimal solution is unique.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Strictly positive reduced costs (c̄ⱼ > 0) mean no alternative optimal solutions exist. If c̄ⱼ = 0 for some non-basic variable, there could be alternative optima.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q17.3 (MCQ)</p>
+            <p>At a BFS, you have one non-basic variable with c̄ = 0 (all others > 0) for a min problem. This indicates:</p>
+            <div class="options">
+                <div class="option">A) Current solution is not optimal</div>
+                <div class="option">B) Alternative optimal solutions exist</div>
+                <div class="option">C) The problem is unbounded</div>
+                <div class="option">D) The problem is infeasible</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> c̄ = 0 for a non-basic variable means entering it doesn't change the objective, so there's an alternative optimal solution.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 18: Unboundedness -->
+    <div class="problem-set">
+        <h2>Problem Set 18: Unbounded Solutions</h2>
+
+        <div class="question">
+            <p class="question-number">Q18.1 (True/False)</p>
+            <p>If an LP is unbounded, it must have at least one feasible solution.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> To be unbounded, the LP must be feasible (have at least one solution) and the objective can be improved without limit.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q18.2 (MCQ)</p>
+            <p>In the Simplex method, unboundedness is detected when:</p>
+            <div class="options">
+                <div class="option">A) All reduced costs are negative</div>
+                <div class="option">B) An entering variable has no valid leaving variable (all dᵢ ≥ 0)</div>
+                <div class="option">C) The basis matrix is singular</div>
+                <div class="option">D) All basic variables are zero</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> If we want to increase a variable (negative reduced cost) but all direction components are ≥ 0, we can increase it indefinitely → unbounded.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q18.3 (Fill in the blank)</p>
+            <p>If the primal problem is unbounded, the dual problem must be ________.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: infeasible</p>
+                <p><strong>Explanation:</strong> By weak duality, if primal is unbounded, dual cannot have any feasible solution (otherwise it would bound the primal).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 19: Infeasibility -->
+    <div class="problem-set">
+        <h2>Problem Set 19: Infeasible Problems</h2>
+
+        <div class="question">
+            <p class="question-number">Q19.1 (MCQ)</p>
+            <p>Which of the following systems is infeasible?</p>
+            <div class="options">
+                <div class="option">A) x + y ≤ 5, x + y ≥ 3, x,y ≥ 0</div>
+                <div class="option">B) x + y ≤ 5, x + y ≥ 6, x,y ≥ 0</div>
+                <div class="option">C) x + y = 5, x - y = 1, x,y ≥ 0</div>
+                <div class="option">D) All are feasible</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> Cannot have x+y ≤ 5 AND x+y ≥ 6 simultaneously. These constraints are contradictory.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q19.2 (True/False)</p>
+            <p>If both primal and dual are infeasible, this violates the strong duality theorem.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> Both primal and dual CAN be infeasible simultaneously. Strong duality only applies when at least one has a feasible solution.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q19.3 (MCQ)</p>
+            <p>The two-phase simplex method is used to:</p>
+            <div class="options">
+                <div class="option">A) Detect unboundedness</div>
+                <div class="option">B) Find an initial BFS</div>
+                <div class="option">C) Compute dual variables</div>
+                <div class="option">D) Handle integer variables</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> Phase 1 finds an initial BFS (or determines infeasibility). Phase 2 optimizes from that starting point.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 20: Degeneracy -->
+    <div class="problem-set">
+        <h2>Problem Set 20: Degeneracy</h2>
+
+        <div class="question">
+            <p class="question-number">Q20.1 (True/False)</p>
+            <p>A BFS is degenerate if one or more basic variables equal zero.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Degeneracy means a basic variable = 0, implying more than n constraints are binding at that point.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q20.2 (MCQ)</p>
+            <p>What problem can degeneracy cause in the Simplex method?</p>
+            <div class="options">
+                <div class="option">A) Infeasibility</div>
+                <div class="option">B) Unboundedness</div>
+                <div class="option">C) Cycling (infinite loop)</div>
+                <div class="option">D) Non-unique optimal solution</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: C</p>
+                <p><strong>Explanation:</strong> Degeneracy can cause the simplex method to cycle (visit the same BFS repeatedly) though this is rare in practice.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q20.3 (Fill in the blank)</p>
+            <p>At a degenerate BFS, more than ________ constraints are binding.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: n (where n = number of variables)</p>
+                <p><strong>Explanation:</strong> Normally exactly n constraints are binding at a BFS. Degeneracy means > n are binding.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 21: Absolute Value Reformulation -->
+    <div class="problem-set">
+        <h2>Problem Set 21: Reformulating Absolute Values</h2>
+
+        <div class="question">
+            <p class="question-number">Q21.1 (MCQ)</p>
+            <p>To reformulate |x| ≤ 5 as linear constraints, we write:</p>
+            <div class="options">
+                <div class="option">A) x ≤ 5</div>
+                <div class="option">B) x ≤ 5 AND x ≥ -5</div>
+                <div class="option">C) x² ≤ 25</div>
+                <div class="option">D) Cannot be linearized</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> |x| ≤ 5 means -5 ≤ x ≤ 5, which gives two linear constraints: x ≤ 5 and x ≥ -5.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q21.2 (True/False)</p>
+            <p>To reformulate the objective min |x₁| + |x₂| as a linear program, we need to introduce 2 auxiliary variables.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Let u = |x₁| and v = |x₂|. Then min u + v with constraints: u ≥ x₁, u ≥ -x₁, v ≥ x₂, v ≥ -x₂, u,v ≥ 0.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q21.3 (Fill in the blank)</p>
+            <p>The constraint |x - 3| ≥ 5 is equivalent to: x ≤ ________ OR x ≥ ________.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: -2, 8</p>
+                <p><strong>Explanation:</strong> |x - 3| ≥ 5 means x - 3 ≥ 5 (→ x ≥ 8) OR x - 3 ≤ -5 (→ x ≤ -2). Note: This creates a disjunction, which is harder to handle in LP!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 22: LP Applications -->
+    <div class="problem-set">
+        <h2>Problem Set 22: LP Application Problems</h2>
+
+        <div class="question">
+            <p class="question-number">Q22.1 (MCQ)</p>
+            <p>In a production planning problem, if the shadow price for labor hours is $15 and for machine hours is $0, which is the bottleneck?</p>
+            <div class="options">
+                <div class="option">A) Labor hours</div>
+                <div class="option">B) Machine hours</div>
+                <div class="option">C) Both equally</div>
+                <div class="option">D) Neither</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A (Labor hours)</p>
+                <p><strong>Explanation:</strong> Shadow price = 0 for machines means that constraint has slack (not binding). Labor with shadow price $15 is the binding constraint (bottleneck).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q22.2 (True/False)</p>
+            <p>In a diet problem, if a food has zero quantity in the optimal solution and positive reduced cost (for min cost), we should not include it in the diet even if it becomes cheaper.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: False</p>
+                <p><strong>Explanation:</strong> Positive reduced cost means the food is currently too expensive relative to its nutritional value. If it becomes cheaper, it might enter the optimal diet.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q22.3 (MCQ)</p>
+            <p>In a transportation problem with m sources and n destinations, how many constraints are there (excluding non-negativity)?</p>
+            <div class="options">
+                <div class="option">A) m + n</div>
+                <div class="option">B) m × n</div>
+                <div class="option">C) m + n - 1</div>
+                <div class="option">D) 2(m + n)</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A (m + n)</p>
+                <p><strong>Explanation:</strong> m supply constraints (one per source) + n demand constraints (one per destination) = m + n total.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 23: Matrix Operations in LP -->
+    <div class="problem-set">
+        <h2>Problem Set 23: Matrix Operations</h2>
+
+        <div class="question">
+            <p class="question-number">Q23.1 (True/False)</p>
+            <p>For the constraint matrix A in standard form Ax = b, if A has rank m (number of rows), then we can always find a basis.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> If rank(A) = m, there exist m linearly independent columns that can form a basis matrix B.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q23.2 (MCQ)</p>
+            <p>The basis matrix B must be:</p>
+            <div class="options">
+                <div class="option">A) Square and invertible</div>
+                <div class="option">B) Rectangular</div>
+                <div class="option">C) Symmetric</div>
+                <div class="option">D) Diagonal</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: A</p>
+                <p><strong>Explanation:</strong> B is m×m (square) and must be invertible (det(B) ≠ 0) to solve for basic variables: x_B = B⁻¹b.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q23.3 (Fill in the blank)</p>
+            <p>Given basis matrix B, the basic variables are computed as x_B = ________.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B⁻¹b</p>
+                <p><strong>Explanation:</strong> Since Bx_B = b (for basic variables), we solve to get x_B = B⁻¹b.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 24: Economic Interpretation -->
+    <div class="problem-set">
+        <h2>Problem Set 24: Economic Interpretation</h2>
+
+        <div class="question">
+            <p class="question-number">Q24.1 (MCQ)</p>
+            <p>A company makes products A and B. Product A has reduced cost -$3 (max profit). The company should:</p>
+            <div class="options">
+                <div class="option">A) Stop making product A</div>
+                <div class="option">B) Make more product A</div>
+                <div class="option">C) Keep production of A unchanged</div>
+                <div class="option">D) Cannot determine</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> Negative reduced cost in maximization means producing more of A will increase profit by $3 per unit.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q24.2 (True/False)</p>
+            <p>If shadow price for a resource is higher than its market price, the company should buy more of that resource (within allowable range).</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Shadow price = marginal value. If shadow price > market price, buying more increases profit by (shadow price - market price) per unit.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q24.3 (MCQ)</p>
+            <p>In a portfolio optimization problem, if a stock has positive reduced cost (min risk), it means:</p>
+            <div class="options">
+                <div class="option">A) The stock should be bought</div>
+                <div class="option">B) The stock adds too much risk relative to return</div>
+                <div class="option">C) The stock is at optimal allocation</div>
+                <div class="option">D) The stock price will increase</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> For minimization, positive reduced cost means including this stock would increase risk. It's not worth holding in the optimal portfolio.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Set 25: Advanced Concepts -->
+    <div class="problem-set">
+        <h2>Problem Set 25: Advanced LP Concepts</h2>
+
+        <div class="question">
+            <p class="question-number">Q25.1 (True/False)</p>
+            <p>An LP with an optimal solution must have at least one extreme point that is optimal.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> By the fundamental theorem of LP, if an optimal solution exists, at least one extreme point is optimal.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q25.2 (MCQ)</p>
+            <p>How many extreme points can an LP have in the worst case (for a bounded polyhedron)?</p>
+            <div class="options">
+                <div class="option">A) Polynomial in n and m</div>
+                <div class="option">B) Exponential in n or m</div>
+                <div class="option">C) Always less than 100</div>
+                <div class="option">D) Infinite</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: B</p>
+                <p><strong>Explanation:</strong> A polyhedron defined by m constraints in ℝⁿ can have up to C(m,n) extreme points, which is exponential. E.g., hypercube has 2ⁿ vertices.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q25.3 (Fill in the blank)</p>
+            <p>The computational complexity of the Simplex method in the worst case is ________, though it performs well in practice.</p>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: exponential</p>
+                <p><strong>Explanation:</strong> Worst-case complexity is exponential, but average-case performance is very good (polynomial-like) for most real-world problems.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p class="question-number">Q25.4 (True/False)</p>
+            <p>Interior point methods can solve LP in polynomial time in the worst case.</p>
+            <div class="options">
+                <div class="option">☐ True</div>
+                <div class="option">☐ False</div>
+            </div>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer">
+                <p class="correct">Answer: True</p>
+                <p><strong>Explanation:</strong> Interior point methods (like Karmarkar's algorithm) have polynomial worst-case complexity, unlike Simplex. However, Simplex is often faster in practice.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 40px 0; padding: 20px; background-color: #3498db; color: white; border-radius: 8px;">
+        <h2>End of Practice Quiz</h2>
+        <p>You've completed all 100 questions across 25 problem sets!</p>
+        <p>Good luck on your exam! 🎓</p>
+    </div>
+
+    <script>
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            answer.classList.toggle('show');
+            button.textContent = answer.classList.contains('show') ? 'Hide Answer' : 'Show Answer';
+        }
+
+        let allAnswersVisible = false;
+        function toggleAllAnswers() {
+            const answers = document.querySelectorAll('.answer');
+            const buttons = document.querySelectorAll('.show-answer-btn');
+
+            allAnswersVisible = !allAnswersVisible;
+
+            answers.forEach(answer => {
+                if (allAnswersVisible) {
+                    answer.classList.add('show');
+                } else {
+                    answer.classList.remove('show');
+                }
+            });
+
+            buttons.forEach(button => {
+                button.textContent = allAnswersVisible ? 'Hide Answer' : 'Show Answer';
+            });
+
+            document.querySelector('.toggle-all').textContent =
+                allAnswersVisible ? 'Hide All Answers' : 'Show All Answers';
+        }
+
+        // Print friendly
+        window.addEventListener('beforeprint', function() {
+            document.querySelectorAll('.answer').forEach(el => el.style.display = 'block');
+        });
+    </script>
+</body>
+</html>

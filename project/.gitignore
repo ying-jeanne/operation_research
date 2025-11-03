@@ -1,0 +1,95 @@
+# Segmentation Strategy Project - Git Ignore File
+
+# ============================================
+# Data Files (too large, get from Kaggle)
+# ============================================
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.pkl
+data/processed/*.parquet
+
+# Keep directory structure but ignore data
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ============================================
+# Python Cache & Bytecode
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ============================================
+# Jupyter Notebook Checkpoints
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ============================================
+# Virtual Environments
+# ============================================
+venv/
+.venv/
+env/
+ENV/
+.env
+
+# ============================================
+# IDEs and Editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================
+# Results (can be regenerated)
+# ============================================
+results/figures/*.png
+results/figures/*.pdf
+results/figures/*.jpg
+results/tables/*.csv
+results/tables/*.xlsx
+results/sensitivity/*.csv
+
+# Keep directory structure
+!results/figures/.gitkeep
+!results/tables/.gitkeep
+!results/sensitivity/.gitkeep
+
+# ============================================
+# Reports (large files)
+# ============================================
+report/*.pdf
+report/*.docx
+report/*.pptx
+
+# ============================================
+# Distribution / Packaging
+# ============================================
+dist/
+build/
+*.egg-info/
+
+# ============================================
+# Testing
+# ============================================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ============================================
+# OS-specific
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

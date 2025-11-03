@@ -1,0 +1,44 @@
+{
+  "Static Token Bucket": {
+    "algorithm_name": "Static Token Bucket",
+    "acceptance_rate": 0.6338338124018088,
+    "sla_compliance_rate": 1.0,
+    "avg_utilization": 1.0,
+    "total_revenue": 0.0,
+    "jains_fairness_index": 0.9868421052631576,
+    "gini_coefficient": 0.050000000000000044,
+    "price_mean": 0.0,
+    "price_std": 0.0,
+    "avg_solve_time_ms": 0.0,
+    "total_solves": 0,
+    "total_skipped": 0
+  },
+  "Basic LP": {
+    "algorithm_name": "Basic LP",
+    "acceptance_rate": 0.25,
+    "sla_compliance_rate": 1.0,
+    "avg_utilization": 1.0,
+    "total_revenue": 0.0,
+    "jains_fairness_index": 0.25,
+    "gini_coefficient": 0.75,
+    "price_mean": 10.0,
+    "price_std": 0.0,
+    "avg_solve_time_ms": 0.5060831705729166,
+    "total_solves": 30,
+    "total_skipped": 0
+  },
+  "VRP-Enhanced LP": {
+    "algorithm_name": "VRP-Enhanced LP",
+    "acceptance_rate": 0.24985098326133776,
+    "sla_compliance_rate": 1.0,
+    "avg_utilization": 1.0,
+    "total_revenue": 0.0,
+    "jains_fairness_index": 0.25,
+    "gini_coefficient": 0.75,
+    "price_mean": 10.0,
+    "price_std": 0.0,
+    "avg_solve_time_ms": 0.6066719690958658,
+    "total_solves": 12,
+    "total_skipped": 18
+  }
+}

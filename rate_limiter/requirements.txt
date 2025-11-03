@@ -1,0 +1,29 @@
+# Dynamic Rate Limiter with VRP-Inspired Enhancements
+# Python dependencies
+
+# Optimization
+gurobipy>=11.0.0
+pulp>=2.7.0  # Alternative LP solver (free)
+
+# Numerical computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Data handling
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Jupyter
+jupyter>=1.0.0
+notebook>=6.5.0
+ipywidgets>=8.0.0
+
+# Progress bars and utilities
+tqdm>=4.65.0
+
+# Testing
+pytest>=7.3.0

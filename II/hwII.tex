@@ -688,28 +688,12 @@ Something interesting to note: when I tried to run the program with inventory = 
 \end{center}
 \end{tcolorbox}
 
-\textbf{Strategic Analysis:}
+\textbf{Result Analysis:}
 
-The price grid policy delivers superior financial performance (\$500 additional revenue, 0.43\% improvement) through more balanced demand capture across the selling period. 
+The price grid policy delivers better financial performance (\$500 additional revenue, 0.43\% improvement). However, the trade-off is increased operational complexity and tighter sensitivity ranges, indicating higher risk if demand deviates from forecasts.
 
-\textbf{Key insights:}
+The key takeaway here is similar to the bias-variance trade-off in prediction problems: there is also a trade-off between model precision and robustness in optimization problems. A more complex model has less "bias" but more "variance." When reality differs from predictions, this variance causes the current best solution to shift to another basic feasible solution (BFS), potentially causing strategy changes.
 
-\begin{enumerate}[nosep]
-\item \textbf{Demand Curve Optimization:} The \$58 price point captures demand more efficiently than jumping directly to \$54, allowing the retailer to extract more consumer surplus from price-sensitive segments.
-
-\item \textbf{Time Allocation Strategy:} The policy shifts from front-loading high prices (11.67 weeks at \$60) to a more balanced approach (5 weeks at \$60, 10 weeks at \$58), better matching demand elasticity patterns.
-
-\item \textbf{Shadow Price Evolution:} Higher inventory shadow price (\$13.00 vs \$9.00) indicates increased inventory utilization efficiency, while lower time shadow price (\$2,750 vs \$3,250) suggests reduced time pressure under the new strategy.
-
-\item \textbf{Sensitivity Analysis:} Narrower sensitivity ranges indicate the price grid policy operates closer to capacity constraints, requiring more precise demand forecasting. Since inventory is pre-defined and can't be modified during the selling season.
-\end{enumerate}
-
-\textbf{Managerial Implications:}
-
-\begin{itemize}[nosep]
-\item \textbf{Implementation Complexity:} Price grid strategy requires more sophisticated demand forecasting and price change management but offers measurable revenue improvements.
-\item \textbf{Market Positioning:} The \$58 price point provides a psychological bridge between premium (\$60) and discount (\$54) positioning, potentially reducing customer churn.
-\item \textbf{Risk-Return Trade-off:} While revenue increases, the narrower sensitivity ranges suggest higher operational risk if demand patterns deviate from forecasts.
-\end{itemize}
+The best optimization model is not always about accuracy alone, but should consider prediction error and maintain a good balance between precision and robustness. Whether there are rules of thumb in operations research to help decide how complex a model should be remains an interesting question to explore.
 \end{enumerate}
 \end{document}
