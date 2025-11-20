@@ -54,4 +54,4 @@ Once the file dfj_results.csv is generated, you can analyze with `analyze_dfj_re
 - Held-Karp relaxation (Subtour Elimination Problem - SEP)
 - [arXiv:2507.07003 - The Integrality Gap of the TSP](https://arxiv.org/abs/2507.07003)
 
-See [GG_FORMULATION.md](GG_FORMULATION.md) and [GG_EXPERIMENT_GUIDE.md](GG_EXPERIMENT_GUIDE.md) for details.
+See [GG_FORMULATION.md](GG_FORMULATION.md)
