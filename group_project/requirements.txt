@@ -1,0 +1,6 @@
+gurobipy
+pandas
+numpy
+matplotlib
+seaborn
+jinja2
