@@ -46,8 +46,8 @@ Once the file dfj_results.csv is generated, you can analyze with `analyze_dfj_re
 - Predictable, stable performance
 
 **DFJ (Dantzig-Fulkerson-Johnson):**
-- Low bias (tighter gaps ~0.1% on average)
-- High variance (gaps vary from 0% to 1.5%)
+- Low bias (tighter gaps ~0.06% on average)
+- High variance (gaps vary from 0% to 1.5%, std = 0.24%)
 - Better average performance but less predictable
 
 **References:**
